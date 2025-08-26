@@ -1,19 +1,29 @@
 # Interactive Brokers API Gateway
 
-A Flask-based API gateway for Interactive Brokers TWS/Gateway, designed for Google Cloud deployment.
+A Flask-based API gateway for Interactive Brokers Client Portal Gateway, designed for multi-user support and Google Cloud deployment.
 
-## Setup
+## Development Setup
 
-1. Copy `.env.example` to `.env` and configure your IB connection settings
+### Docker Compose (Recommended)
+```bash
+docker-compose up --build
+```
+This starts both Client Portal Gateway (port 5000) and API service (port 8080) with live file mapping.
+
+### Manual Setup
+1. Copy `.env.example` to `.env`
 2. Install dependencies: `pip install -r requirements.txt`
 3. Run locally: `python main.py`
 
-## Docker
+## Docker Production
 
 Build: `docker build -t ibkr-api-gateway .`
-Run: `docker run -p 8080:8080 -e IB_HOST=host.docker.internal ibkr-api-gateway`
+Run: `docker run -p 5000:5000 -p 8080:8080 ibkr-api-gateway`
 
-**Note**: The container runs IB Gateway headlessly. For initial setup, you may need to configure credentials outside the container first.
+## Authentication
+
+1. Navigate to `https://localhost:5000` to authenticate with IBKR
+2. Use the session for API calls with Authorization header
 
 ## Google Cloud Deployment
 
@@ -23,6 +33,5 @@ Run: `docker run -p 8080:8080 -e IB_HOST=host.docker.internal ibkr-api-gateway`
 ## API Endpoints
 
 - `GET /health` - Health check
-- `POST /connect` - Connect to IB TWS/Gateway
-- `POST /disconnect` - Disconnect from IB
-- `GET /quote/<symbol>` - Get market data for symbol
+- `GET /portfolio` - Get portfolio data (requires Authorization header)
+- Client Portal Gateway: `https://localhost:5000`
