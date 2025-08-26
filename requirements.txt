@@ -1,0 +1,4 @@
+flask==2.3.3
+ib-insync==0.9.86
+gunicorn==21.2.0
+python-dotenv==1.0.0
