@@ -11,7 +11,9 @@ A Flask-based API gateway for Interactive Brokers TWS/Gateway, designed for Goog
 ## Docker
 
 Build: `docker build -t ibkr-api-gateway .`
-Run: `docker run -p 8080:8080 ibkr-api-gateway`
+Run: `docker run -p 8080:8080 -e IB_HOST=host.docker.internal ibkr-api-gateway`
+
+**Note**: The container runs IB Gateway headlessly. For initial setup, you may need to configure credentials outside the container first.
 
 ## Google Cloud Deployment
 

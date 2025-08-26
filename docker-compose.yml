@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  ibkr-gateway:
+    build: .
+    ports:
+      - "5000:5000"
+      - "8080:8080"
+    volumes:
+      - ./main.py:/app/main.py
+      - ./start-services.sh:/app/start-services.sh
+      - ./.env:/app/.env
+    environment:
+      - GATEWAY_BASE_URL=http://localhost:5000/v1/api
+      - PORT=8080
